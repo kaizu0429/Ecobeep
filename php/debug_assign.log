@@ -1,0 +1,221 @@
+
+
+=== NEW REQUEST at 2026-02-10 14:29:35 ===
+Database connected successfully
+Action requested: unassign_driver
+Unassigning assignment ID: 5
+Found assignment: Driver ID 3
+Assignment marked inactive
+Updating driver status to 'available'...
+Status update result: SUCCESS, rows affected: 1
+
+
+=== NEW REQUEST at 2026-02-10 14:29:38 ===
+Database connected successfully
+Action requested: assign_driver
+Raw input: {"driver_id":3,"vehicle_id":3,"notes":""}
+Decoded input: Array
+(
+    [driver_id] => 3
+    [vehicle_id] => 3
+    [notes] => 
+)
+
+Vehicle ID: 3, Driver ID: 3
+Vehicle found: ETI 234
+Driver found: Victor Magtanggol, Status: available
+Inserting assignment...
+Assignment insert result: SUCCESS
+Assignment ID: 6
+Updating driver status to 'assigned'...
+Status update result: SUCCESS
+Rows affected: 1
+New driver status after update: 
+Assignment completed successfully
+
+
+=== NEW REQUEST at 2026-02-10 14:43:25 ===
+Database connected successfully
+Action requested: get_all_data
+
+
+=== NEW REQUEST at 2026-02-10 14:55:43 ===
+Database connected successfully
+Action requested: unassign_driver
+Unassigning assignment ID: 4
+Found assignment: Driver ID 1
+Assignment marked inactive
+Updating driver status to 'available'...
+Status update result: SUCCESS, rows affected: 1
+
+
+=== NEW REQUEST at 2026-02-10 14:55:46 ===
+Database connected successfully
+Action requested: assign_driver
+Raw input: {"driver_id":1,"vehicle_id":2,"notes":""}
+Decoded input: Array
+(
+    [driver_id] => 1
+    [vehicle_id] => 2
+    [notes] => 
+)
+
+Vehicle ID: 2, Driver ID: 1
+Vehicle found: KDM 123
+Driver found: Eddrian Galeno, Status: available
+Inserting assignment...
+Assignment insert result: SUCCESS
+Assignment ID: 7
+Updating driver status to 'assigned'...
+Status update result: SUCCESS
+Rows affected: 1
+New driver status after update: 
+Assignment completed successfully
+
+
+=== NEW REQUEST at 2026-02-10 15:13:58 ===
+Database connected successfully
+Action requested: unassign_driver
+Unassigning assignment ID: 7
+Found assignment: Driver ID 1
+Assignment marked inactive
+Updating driver status to 'available'...
+Status update result: SUCCESS, rows affected: 1
+
+
+=== NEW REQUEST at 2026-02-10 15:14:03 ===
+Database connected successfully
+Action requested: assign_driver
+Raw input: {"driver_id":1,"vehicle_id":2,"notes":""}
+Decoded input: Array
+(
+    [driver_id] => 1
+    [vehicle_id] => 2
+    [notes] => 
+)
+
+Vehicle ID: 2, Driver ID: 1
+Vehicle found: KDM 123
+Driver found: Eddrian Galeno, Status: available
+Inserting assignment...
+Assignment insert result: SUCCESS
+Assignment ID: 8
+Updating driver status to 'assigned'...
+Status update result: SUCCESS
+Rows affected: 1
+New driver status after update: 
+Assignment completed successfully
+
+
+=== NEW REQUEST at 2026-02-10 15:18:49 ===
+Database connected successfully
+Action requested: unassign_driver
+Unassigning assignment ID: 8
+Found assignment: Driver ID 1
+Assignment marked inactive
+Updating driver status to 'available'...
+Status update result: SUCCESS, rows affected: 1
+
+
+=== NEW REQUEST at 2026-02-10 15:18:54 ===
+Database connected successfully
+Action requested: assign_driver
+Raw input: {"driver_id":1,"vehicle_id":2,"notes":""}
+Decoded input: Array
+(
+    [driver_id] => 1
+    [vehicle_id] => 2
+    [notes] => 
+)
+
+Vehicle ID: 2, Driver ID: 1
+Vehicle found: KDM 123
+Driver found: Eddrian Galeno, Status: available
+Inserting assignment...
+Assignment insert result: SUCCESS
+Assignment ID: 9
+Updating driver status to 'assigned'...
+Status update result: SUCCESS
+Rows affected: 1
+New driver status after update: 
+Assignment completed successfully
+
+
+=== NEW REQUEST at 2026-02-10 15:19:10 ===
+Database connected successfully
+Action requested: unassign_driver
+Unassigning assignment ID: 9
+Found assignment: Driver ID 1
+Assignment marked inactive
+Updating driver status to 'available'...
+Status update result: SUCCESS, rows affected: 1
+
+
+=== NEW REQUEST at 2026-02-10 17:17:12 ===
+Database connected successfully
+Action requested: get_all_data
+
+
+=== NEW REQUEST at 2026-02-11 04:57:14 ===
+Database connected successfully
+Action requested: get_all_data
+
+
+=== NEW REQUEST at 2026-02-11 04:57:43 ===
+Database connected successfully
+Action requested: get_all_data
+
+
+=== NEW REQUEST at 2026-02-11 04:58:02 ===
+Database connected successfully
+Action requested: get_all_data
+
+
+=== NEW REQUEST at 2026-02-11 04:58:05 ===
+Database connected successfully
+Action requested: get_all_data
+
+
+=== NEW REQUEST at 2026-02-11 05:19:22 ===
+Database connected successfully
+Action requested: get_all_data
+
+
+=== NEW REQUEST at 2026-02-11 05:19:23 ===
+Database connected successfully
+Action requested: get_available_drivers
+
+
+=== NEW REQUEST at 2026-02-11 05:19:31 ===
+Database connected successfully
+Action requested: get_all_data
+
+
+=== NEW REQUEST at 2026-02-11 05:19:33 ===
+Database connected successfully
+Action requested: get_available_drivers
+
+
+=== NEW REQUEST at 2026-02-11 05:23:59 ===
+Database connected successfully
+Action requested: get_all_data
+
+
+=== NEW REQUEST at 2026-02-11 05:24:00 ===
+Database connected successfully
+Action requested: get_available_drivers
+
+
+=== NEW REQUEST at 2026-02-11 05:25:56 ===
+Database connected successfully
+Action requested: get_all_data
+
+
+=== NEW REQUEST at 2026-02-11 05:25:57 ===
+Database connected successfully
+Action requested: get_available_drivers
+
+
+=== NEW REQUEST at 2026-02-11 05:51:49 ===
+Database connected successfully
+Action requested: get_all_data

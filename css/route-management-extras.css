@@ -1,0 +1,237 @@
+/* Route Management - Additional Styles for Alert and Cards */
+
+/* Alert Box */
+.alert-box {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert-box i {
+    font-size: 20px;
+}
+
+.alert-success {
+    background: #d1fae5;
+    color: #065f46;
+    border-left: 4px solid #10b981;
+}
+
+.alert-error {
+    background: #fee2e2;
+    color: #991b1b;
+    border-left: 4px solid #ef4444;
+}
+
+/* Route Card Improvements */
+.route-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.route-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.route-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f3f4f6;
+}
+
+.route-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.route-card-title i {
+    color: #3b82f6;
+}
+
+.route-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-active {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.badge-inactive {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.route-card-body {
+    margin-bottom: 15px;
+}
+
+.route-info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.route-label {
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.route-value {
+    color: #1f2937;
+    font-weight: 600;
+}
+
+.route-card-actions {
+    display: flex;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 2px solid #f3f4f6;
+}
+
+.route-btn-edit,
+.route-btn-delete {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.route-btn-edit {
+    background: #eff6ff;
+    color: #1e40af;
+}
+
+.route-btn-edit:hover {
+    background: #dbeafe;
+}
+
+.route-btn-delete {
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.route-btn-delete:hover {
+    background: #fee2e2;
+}
+
+/* Code Badge in Table */
+.code-badge {
+    background: #f3f4f6;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* Modal Auto-Calculate Helper */
+.auto-calc-helper {
+    background: #f0f9ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #1e40af;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.auto-calc-helper i {
+    color: #3b82f6;
+}
+
+/* Empty State Styling */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #64748b;
+    grid-column: 1/-1;
+}
+
+.empty-state i {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.4;
+    display: block;
+}
+
+.empty-state i.fa-route {
+    color: #3b82f6;
+}
+
+.empty-state i.fa-exclamation-triangle {
+    color: #f59e0b;
+}
+
+.empty-state i.fa-spinner {
+    color: #3b82f6;
+}
+
+.empty-state p:first-of-type {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    color: #1f2937;
+}
+
+.empty-state p:last-of-type {
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+    opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .route-card-actions {
+        flex-direction: column;
+    }
+    
+    .route-btn-edit,
+    .route-btn-delete {
+        width: 100%;
+    }
+}

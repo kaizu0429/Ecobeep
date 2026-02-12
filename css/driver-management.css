@@ -1,0 +1,342 @@
+/* ========================================
+   DRIVER MANAGEMENT PAGE STYLES
+   ======================================== */
+
+.driver-mgmt-content {
+    padding: 20px;
+}
+
+/* Vehicle Stats Row */
+.dm-vehicle-stats {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.dm-vehicle-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+.dm-vehicle-stat-item i {
+    font-size: 32px;
+    color: #3b82f6;
+}
+
+.dm-vs-label {
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.dm-vs-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.dm-vs-value.green {
+    color: #10b981;
+}
+
+.dm-vs-value.blue {
+    color: #3b82f6;
+}
+
+/* Filter Section */
+.dm-filter-section {
+    margin-bottom: 20px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Driver Status Badges */
+.dm-status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.dm-status-badge.available {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.dm-status-badge.assigned {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.dm-status-badge.suspended {
+    background: #fed7aa;
+    color: #92400e;
+}
+
+.dm-status-badge.leave {
+    background: #e9d5ff;
+    color: #6b21a8;
+}
+
+.dm-status-badge.on_leave {
+    background: #e9d5ff;
+    color: #6b21a8;
+}
+
+.dm-status-badge.inactive {
+    background: #f3f4f6;
+    color: #4b5563;
+}
+
+/* Action Buttons in Table */
+.dm-action-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 0 3px;
+}
+
+.dm-action-btn.assign {
+    background: #3b82f6;
+    color: white;
+}
+
+.dm-action-btn.assign:hover {
+    background: #2563eb;
+}
+
+.dm-action-btn.unassign {
+    background: #10b981;
+    color: white;
+}
+
+.dm-action-btn.unassign:hover {
+    background: #059669;
+}
+
+.dm-action-btn.suspend {
+    background: #f59e0b;
+    color: white;
+}
+
+.dm-action-btn.suspend:hover {
+    background: #d97706;
+}
+
+.dm-action-btn.terminate {
+    background: #ef4444;
+    color: white;
+}
+
+.dm-action-btn.terminate:hover {
+    background: #dc2626;
+}
+
+.dm-action-btn.leave {
+    background: #a855f7;
+    color: white;
+}
+
+.dm-action-btn.leave:hover {
+    background: #9333ea;
+}
+
+.dm-action-btn.return {
+    background: #10b981;
+    color: white;
+}
+
+.dm-action-btn.return:hover {
+    background: #059669;
+}
+
+.dm-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Assignment Info */
+.dm-assignment-info {
+    font-size: 13px;
+    color: #374151;
+}
+
+.dm-assignment-info i {
+    color: #3b82f6;
+    margin-right: 5px;
+}
+
+.dm-no-assignment {
+    color: #9ca3af;
+    font-style: italic;
+    font-size: 13px;
+}
+
+/* Filter Pills Enhancement */
+.js-filter-pill {
+    position: relative;
+}
+
+.js-filter-pill.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 3px;
+    background: #3b82f6;
+    border-radius: 2px 2px 0 0;
+}
+
+/* Modal Enhancements */
+.modal-box {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Warning Box */
+.dm-warning-box {
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 4px;
+}
+
+.dm-warning-box p {
+    color: #92400e;
+    font-size: 13px;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dm-vehicle-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .dm-action-btn {
+        display: block;
+        width: 100%;
+        margin: 3px 0;
+    }
+    
+    .js-stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .js-stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Table Responsive Enhancements */
+@media (max-width: 1200px) {
+    .js-maintenance-table {
+        font-size: 13px;
+    }
+    
+    .js-maintenance-table th,
+    .js-maintenance-table td {
+        padding: 10px 8px;
+    }
+}
+
+/* Loading State */
+.dm-loading {
+    text-align: center;
+    padding: 40px;
+    color: #6b7280;
+}
+
+.dm-loading i {
+    font-size: 32px;
+    margin-bottom: 10px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Empty State */
+.dm-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #9ca3af;
+}
+
+.dm-empty-state i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+.dm-empty-state p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+/* Success/Error Messages */
+.dm-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideIn 0.3s ease;
+}
+
+.dm-message.success {
+    background: #d1fae5;
+    color: #065f46;
+    border-left: 4px solid #10b981;
+}
+
+.dm-message.error {
+    background: #fee2e2;
+    color: #991b1b;
+    border-left: 4px solid #ef4444;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
