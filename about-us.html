@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - EcoBeep</title>
+    <link rel="stylesheet" href="../css/login-style.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #3b7fbd 0%, #7cb342 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAVBAR STYLES - DARK BLUE */
+        .navbar {
+            background: linear-gradient(135deg, #0a1929 0%, #1e3a5f 100%);
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-logo {
+            width: 50px;
+            height: 50px;
+            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.2));
+        }
+
+        .nav-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #7cb342;
+        }
+
+        .nav-links a.active {
+            background: rgba(124, 179, 66, 0.2);
+            color: #7cb342;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(135deg, #0a1929 0%, #1e3a5f 100%);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 30px 40px;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-left, .footer-center, .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #7cb342;
+        }
+
+        .separator {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Full-width About Us page styles */
+        .about-container {
+            flex: 1;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            margin-top: 80px;
+        }
+
+        .about-hero {
+            background: linear-gradient(135deg, #3b7fbd 0%, #7cb342 100%);
+            padding: 80px 20px 60px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(124, 179, 66, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: heroGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes heroGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .about-hero .logo {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 30px;
+            display: block;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
+            animation: float 6s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .about-hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-hero p {
+            font-size: 20px;
+            opacity: 0.95;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .mission-section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mission-section h2 {
+            color: #3b7fbd;
+            font-size: 36px;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .mission-section p {
+            line-height: 1.9;
+            color: #444;
+            font-size: 18px;
+        }
+
+        .team-section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .team-section h2 {
+            color: #3b7fbd;
+            font-size: 36px;
+            margin-bottom: 40px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .team-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 35px;
+            transition: all 0.3s ease;
+            border-left: 5px solid #7cb342;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(124, 179, 66, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(59, 127, 189, 0.2);
+            border-left-color: #3b7fbd;
+        }
+
+        .team-card h3 {
+            color: #2e5f8d;
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .team-role {
+            color: #7cb342;
+            font-weight: 600;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .team-responsibilities {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .team-responsibilities ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .team-responsibilities li {
+            color: #555;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .team-responsibilities li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #7cb342;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .team-email {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .team-email a {
+            color: #3b7fbd;
+            text-decoration: none;
+            font-size: 14px;
+            word-break: break-all;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .team-email a:hover {
+            color: #7cb342;
+            text-decoration: underline;
+        }
+
+        .email-icon {
+            font-size: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+                padding: 6px 12px;
+            }
+
+            .about-hero {
+                padding: 60px 20px 40px;
+            }
+
+            .about-hero h1 {
+                font-size: 32px;
+            }
+
+            .about-hero p {
+                font-size: 16px;
+            }
+
+            .about-hero .logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .mission-section,
+            .team-section {
+                padding: 30px 25px;
+            }
+
+            .mission-section h2,
+            .team-section h2 {
+                font-size: 28px;
+            }
+
+            .mission-section p {
+                font-size: 16px;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .about-content {
+                padding: 40px 20px;
+            }
+
+            .team-card {
+                padding: 25px 20px;
+            }
+
+            .team-card h3 {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-title {
+                font-size: 22px;
+            }
+
+            .nav-logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 11px;
+                padding: 5px 8px;
+            }
+
+            .about-hero h1 {
+                font-size: 28px;
+            }
+
+            .mission-section h2,
+            .team-section h2 {
+                font-size: 24px;
+            }
+
+            .team-card h3 {
+                font-size: 18px;
+            }
+
+            .team-role {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="ecobeeplogo_nobg.png" alt="EcoBeep Logo" class="nav-logo">
+                <span class="nav-title">ECOBEEP</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="about-us.html" class="active">ABOUT US</a></li>
+                <li><a href="help-center.html">HELP CENTER</a></li>
+                <li><a href="login.html">LOG IN</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="about-container">
+        <!-- Hero Section -->
+        <div class="about-hero">
+            <img src="ecobeeplogo_nobg.png" alt="EcoBeep Logo" class="logo">
+            <h1>About Us</h1>
+            <p>Your Tap-to-Pay Jeepney Companion</p>
+        </div>
+
+        <!-- Content Section -->
+        <div class="about-content">
+            <!-- Mission Section -->
+            <div class="mission-section">
+                <h2>Our Mission</h2>
+                <p>EcoBeep is an intelligent transport solution developed by a group of Information Technology (IT) students from NU Fairview. Designed for jeepney transportation, it introduces a secure, cashless, and eco-friendly fare system that empowers passengers with faster transactions, drivers with easier revenue tracking, and operators with efficient driver management. Guided by a mission to improve jeepney rides for passengers and drivers, the team is committed to building a fairer and more reliable jeepney fare system.</p>
+            </div>
+
+            <!-- Team Section -->
+            <div class="team-section">
+                <h2>Meet the Team</h2>
+                <div class="team-grid">
+                    <!-- Team Member 1 -->
+                    <div class="team-card">
+                        <h3>Jeremy J. Baltazar</h3>
+                        <div class="team-role">Project Documentation Lead</div>
+                        <div class="team-responsibilities">
+                            <ul>
+                                <li>Oversaw project records and ensured all technical details are clearly documented for transparency and future reference.</li>
+                            </ul>
+                        </div>
+                        <div class="team-email">
+                            <a href="mailto:baltazarjj@students-nu-fairview.edu.ph">
+                                <span class="email-icon">📧</span>
+                                baltazarjj@students-nu-fairview.edu.ph
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Team Member 2 -->
+                    <div class="team-card">
+                        <h3>Ruth Caye C. Dequilla</h3>
+                        <div class="team-role">Project Documentation and Quality Assurance</div>
+                        <div class="team-responsibilities">
+                            <ul>
+                                <li>Supported documentation while testing the system to maintain accuracy, reliability, and user-friendly performance.</li>
+                            </ul>
+                        </div>
+                        <div class="team-email">
+                            <a href="mailto:dequillarc@students.nu-fairview.edu.ph">
+                                <span class="email-icon">📧</span>
+                                dequillarc@students.nu-fairview.edu.ph
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Team Member 3 -->
+                    <div class="team-card">
+                        <h3>Eddrian Y. Galeno</h3>
+                        <div class="team-role">Embedded Systems Engineer</div>
+                        <div class="team-responsibilities">
+                            <ul>
+                                <li>Designed and integrated the hardware components that power EcoBeep's secure and cashless jeepney fare system.</li>
+                            </ul>
+                        </div>
+                        <div class="team-email">
+                            <a href="mailto:galenoey1@students.nu-fairview.edu.ph">
+                                <span class="email-icon">📧</span>
+                                galenoey1@students.nu-fairview.edu.ph
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Team Member 4 -->
+                    <div class="team-card">
+                        <h3>Andrea Beatrice C. Lachica</h3>
+                        <div class="team-role">Project Manager</div>
+                        <div class="team-responsibilities">
+                            <ul>
+                                <li>Coordinated the team, delegated tasks, and ensured smooth collaboration from development to implementation.</li>
+                            </ul>
+                        </div>
+                        <div class="team-email">
+                            <a href="mailto:lachicaac1@students.n-fairview.edu.ph">
+                                <span class="email-icon">📧</span>
+                                lachicaac1@students.n-fairview.edu.ph
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Team Member 5 -->
+                    <div class="team-card">
+                        <h3>Maiko C. Madrid</h3>
+                        <div class="team-role">Lead Programmer and Mobile Application Developer</div>
+                        <div class="team-responsibilities">
+                            <ul>
+                                <li>Developed the system and mobile application, ensuring EcoBeep's platform functioned efficiently and securely.</li>
+                            </ul>
+                        </div>
+                        <div class="team-email">
+                            <a href="mailto:madridmkc@students.nu-fairview.edu.ph">
+                                <span class="email-icon">📧</span>
+                                madridmkc@students.nu-fairview.edu.ph
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Team Member 6 -->
+                    <div class="team-card">
+                        <h3>Earlkin M. Racuya</h3>
+                        <div class="team-role">Mobile Application Developer</div>
+                        <div class="team-responsibilities">
+                            <ul>
+                                <li>Developed the mobile application, enabling features such as card linking, wallet reload, and balance tracking.</li>
+                            </ul>
+                        </div>
+                        <div class="team-email">
+                            <a href="mailto:racuyaem@students.nu-fairview.edu.ph">
+                                <span class="email-icon">📧</span>
+                                racuyaem@students.nu-fairview.edu.ph
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <a href="#">Terms and Policies</a>
+                <span class="separator">•</span>
+                <a href="#">Privacy Notice</a>
+            </div>
+            <div class="footer-center">
+                <p>&copy; EcoBeep 2026</p>
+            </div>
+            <div class="footer-right">
+                <p>Based in Quezon City, Philippines | Contact us: <a href="mailto:support@ecobeep.com">support@ecobeep.com</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

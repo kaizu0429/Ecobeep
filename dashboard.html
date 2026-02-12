@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Details - EcoBeep</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/jeep-status.css">
+<link rel="stylesheet" href="css/driver-management.css">
+<link rel="stylesheet" href="css/route-management.css">  
+<link rel="stylesheet" href="css/vehicle-details.css">
+<link rel="stylesheet" href="css/scheduling.css">
+<link rel="stylesheet" href="css/logout-styles.css">
+<link rel="stylesheet" href="css/route-management-extras.css">
+
+ 
+</head>
+<body>
+ 
+<!-- ===================== SIDEBAR ===================== -->
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <div class="logo-img"><i class="fas fa-bus"></i></div>
+        <div class="brand">EcoBeep</div>
+    </div>
+    <nav>
+        <ul>
+            <li>
+                <a href="#" class="nav-link active" data-page="home">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </li>
+       
+            
+            <li>
+                <a href="#" class="nav-link" data-page="driver-mgmt">
+                    <i class="fas fa-users"></i> Driver Management
+                </a>
+            </li>
+            
+            <li>
+                
+                <li>
+                    <a href="#" class="nav-link" data-page="vehicle-details">
+                        <i class="fas fa-id-card"></i> Vehicle Details
+                    </a>
+            </li>
+            
+           		<li>
+                    <a href="#" class="nav-link" data-page="jeep-status">
+                        <i class="fas fa-circle-info"></i> Jeep Status
+                    </a>
+    			</li>
+                
+                <li>
+                <a href="#" class="nav-link" data-page="route-mgmt">
+                    <i class="fas fa-map-marker-alt"></i> Route Management
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link" data-page="scheduling">
+                    <i class="fas fa-calendar-alt"></i> Scheduling &amp; Dispatch
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-section-label">Settings</div>
+        <ul>
+            <li>
+                <a href="#" class="nav-link" data-page="account">
+                    <i class="fas fa-user"></i> Account Setting
+                </a>
+            </li>
+        </ul>
+          <li>
+                 <a href="#" class="nav-link logout-btn" onclick="logout(); return false;">
+             <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+</li>
+    </nav>
+</aside>
+ 
+<!-- ===================== MAIN WRAPPER ===================== -->
+<div class="main-wrapper">
+ 
+    <!-- ========== HOME PAGE ========== -->
+    <div class="page active" id="page-home">
+        <div class="home-header">
+            <div class="welcome-title">Welcome, Operator 👋</div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="profile-icon"><i class="fas fa-user"></i></div>
+        </div>
+ 
+        <div class="fleet-banner">
+            <h2>Here's Your Fleet Overview Today</h2>
+        </div>
+ 
+        <div class="home-grid">
+            <!-- Available Jeeps -->
+            <div class="home-card">
+                <div class="home-card-title">
+                    <i class="fas fa-bus"></i> Available Jeeps: 
+                    <span id="homeAvailableJeeps">12</span>
+                </div>
+            </div>
+ 
+            <!-- Available Drivers -->
+            <div class="home-card">
+                <div class="home-card-title">
+                    <i class="fas fa-user-check"></i> Available Drivers: 
+                    <span id="homeAvailableDrivers">8</span>
+                </div>
+            </div>
+ 
+            <!-- Active Routes -->
+            <div class="home-card">
+                <div class="home-card-title">
+                    <i class="fas fa-route"></i> Active Routes: 
+                    <span id="homeActiveRoutes">5</span>
+                </div>
+            </div>
+ 
+            <!-- Today's Taps -->
+            <div class="home-card">
+                <div class="home-card-title">
+                    <i class="fas fa-credit-card"></i> Today's Taps: 
+                    <span id="homeTodayTaps">1,245</span>
+                </div>
+            </div>
+ 
+            <!-- Revenue Summary -->
+            <div class="home-card">
+                <div class="home-card-title"><i class="fas fa-chart-line"></i> Revenue Summary</div>
+                <div class="rev-row"><span class="rev-label">Total Revenue Today:</span><span class="rev-value">₱12,450</span></div>
+                <div class="rev-row"><span class="rev-label">Trips Completed:</span><span class="rev-value">25</span></div>
+                <div class="rev-row"><span class="rev-label">Avg. Fare per Trip:</span><span class="rev-value">₱40</span></div>
+                <div class="rev-row"><span class="rev-label">Top Driver:</span><span class="rev-value">Juan Dela Cruz – ₱4,550</span></div>
+                <div class="rev-row"><span class="rev-label">Revenue Trend:</span><span class="rev-value rev-trend">↑ 8% vs. yesterday</span></div>
+                <a class="view-breakdown" href="#">View Breakdown</a>
+            </div>
+ 
+            <!-- Driver Status -->
+            <div class="home-card">
+                <div class="home-card-title"><i class="fas fa-user"></i> Driver Status</div>
+                <div class="driver-head"><span>Name</span><span>Status</span></div>
+                <div class="driver-row"><span>Juan Dela Cruz</span><span class="badge badge-active">Active</span></div>
+                <div class="driver-row"><span>Piolo Pascual</span><span class="badge badge-inactive">Inactive</span></div>
+                <div class="driver-row"><span>Coco Martin</span><span class="badge badge-break">On Break</span></div>
+            </div>
+ 
+            <!-- Alerts -->
+            <div class="home-card">
+                <div class="home-card-title"><i class="fas fa-bell"></i> Alerts/Notifications</div>
+                <div id="homeAlerts">
+                    <p style="color: #636e72; font-size: 13px;">No alerts at this time</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ========== VEHICLE DETAILS PAGE ========== -->
+    <div class="page" id="page-vehicle-details">
+        <!-- Header -->
+        <div class="header">
+            <div class="page-title">Vehicle Details</div>
+            <div class="search-container">
+                <input type="text" class="search-input" id="vehicleSearchInput" placeholder="Search...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="profile-icon">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+ 
+        <!-- Main Content -->
+        <div class="content-container">
+            <div class="registered-vehicles-section">
+                <div class="registered-vehicles-label">Registered Vehicles</div>
+            </div>
+ 
+            <!-- Pagination (built by JS) -->
+            <div class="pagination" id="pagination"></div>
+ 
+            <!-- Vehicle Grid (filled by JS) -->
+            <div class="vehicle-grid" id="vehicleGrid">
+                <div class="loading-msg">Loading vehicles...</div>
+            </div>
+ 
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-add" onclick="openAddModal()">
+                    <i class="fas fa-plus-circle btn-icon"></i>
+                    Add Vehicle
+                </button>
+                <button class="btn btn-edit" onclick="openEditModal()">
+                    <i class="fas fa-edit btn-icon"></i>
+                    Edit Vehicle
+                </button>
+                <button class="btn btn-remove" onclick="removeVehicle()">
+                    <i class="fas fa-trash-alt btn-icon"></i>
+                    Remove Vehicle
+                </button>
+                <button class="btn btn-inactive" onclick="markInactive()">
+                    <i class="fas fa-ban btn-icon"></i>
+                    Mark as Inactive
+                </button>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- ========== JEEP STATUS PAGE ========== -->
+    <div class="page" id="page-jeep-status">
+        <!-- Header -->
+        <div class="header">
+            <div class="page-title">Jeep Status & Maintenance</div>
+            <div class="search-container">
+                <input type="text" class="search-input" id="jeepStatusSearchInput" placeholder="Search vehicle...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="profile-icon">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+ 
+        <!-- Jeep Status Content -->
+        <div class="jeep-status-content">
+            <!-- Stats Grid -->
+            <div class="js-stats-grid">
+                <div class="js-stat-card">
+                    <div class="js-stat-header">
+                        <div class="js-stat-icon green">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="js-stat-value" id="statOperational">0</div>
+                    <div class="js-stat-label">Operational Vehicles</div>
+                </div>
+                <div class="js-stat-card">
+                    <div class="js-stat-header">
+                        <div class="js-stat-icon orange">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                    </div>
+                    <div class="js-stat-value" id="statMaintenance">0</div>
+                    <div class="js-stat-label">Under Maintenance</div>
+                </div>
+                <div class="js-stat-card">
+                    <div class="js-stat-header">
+                        <div class="js-stat-icon red">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                    </div>
+                    <div class="js-stat-value" id="statRepair">0</div>
+                    <div class="js-stat-label">Needs Repair</div>
+                </div>
+                <div class="js-stat-card">
+                    <div class="js-stat-header">
+                        <div class="js-stat-icon blue">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="js-stat-value" id="statScheduled">0</div>
+                    <div class="js-stat-label">Scheduled This Week</div>
+                </div>
+            </div>
+ 
+            <!-- Action Buttons -->
+            <div class="js-action-buttons">
+                <button class="js-btn js-btn-secondary" onclick="exportMaintenanceReport()">
+                    <i class="fas fa-download"></i>
+                    Export Report
+                </button>
+                <button class="js-btn js-btn-primary" onclick="openAddMaintenanceModal()">
+                    <i class="fas fa-plus"></i>
+                    Add Maintenance
+                </button>
+            </div>
+ 
+            <!-- Content Grid -->
+            <div class="js-content-grid">
+                <!-- Vehicle Maintenance Status Table -->
+                <div class="js-card">
+                    <div class="js-card-header">
+                        <h2 class="js-card-title">Vehicle Maintenance Status</h2>
+                        <div class="js-table-controls">
+                            <div class="js-filter-pills">
+                                <button class="js-filter-pill active" data-filter="all">All</button>
+                                <button class="js-filter-pill" data-filter="operational">Operational</button>
+                                <button class="js-filter-pill" data-filter="maintenance">Maintenance</button>
+                                <button class="js-filter-pill" data-filter="repair">Repair</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="js-card-body js-card-body-no-padding">
+                        <table class="js-maintenance-table">
+                            <thead>
+                                <tr>
+                                    <th>Vehicle</th>
+                                    <th>Status</th>
+                                    <th>Last Service</th>
+                                    <th>Next Service</th>
+                                    <th>Health</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="maintenanceTableBody">
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 40px; color: #636e72;">
+                                        <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
+                                        <p style="margin-top: 10px;">Loading vehicles from database...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+ 
+                <!-- Right Column -->
+                <div class="js-right-column">
+                    <!-- Upcoming Maintenance -->
+                    <div class="js-card">
+                        <div class="js-card-header">
+                            <h2 class="js-card-title">Upcoming Maintenance</h2>
+                            <a href="#" class="js-view-all-link">View All</a>
+                        </div>
+                        <div class="js-card-body">
+                            <div class="js-upcoming-list">
+                                <div style="text-align: center; padding: 20px; color: #636e72;">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <!-- Recent Maintenance History -->
+                    <div class="js-card">
+                        <div class="js-card-header">
+                            <h2 class="js-card-title">Recent History</h2>
+                            <a href="#" class="js-view-all-link">View All</a>
+                        </div>
+                        <div class="js-card-body">
+                            <div style="text-align: center; padding: 20px; color: #636e72;">
+                                <i class="fas fa-spinner fa-spin"></i> Loading...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- ========== VEHICLE DETAIL PANEL ========== -->
+    <div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
+        <div class="detail-panel" id="detailPanel">
+            <button class="detail-close" onclick="closeDetailPanel()">&times;</button>
+            <h3 class="detail-title">Vehicle Details</h3>
+            <div class="detail-body">
+                <div class="detail-row"><span class="detail-label">Plate Number</span><span class="detail-value" id="detailPlate">—</span></div>
+                <div class="detail-row"><span class="detail-label">Model Number</span><span class="detail-value" id="detailModel">—</span></div>
+                <div class="detail-row"><span class="detail-label">Engine Number</span><span class="detail-value" id="detailEngine">—</span></div>
+                <div class="detail-row"><span class="detail-label">Passenger Capacity</span><span class="detail-value" id="detailCapacity">—</span></div>
+                <div class="detail-row"><span class="detail-label">OR/CR</span><span class="detail-value" id="detailOrCr">—</span></div>
+                <div class="detail-row"><span class="detail-label">Status</span><span class="detail-value" id="detailStatus">—</span></div>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- ========== ADD / EDIT VEHICLE MODAL ========== -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h3 class="modal-title" id="modalTitle">Add Vehicle</h3>
+ 
+            <div class="modal-form">
+                <input type="hidden" id="modalId" value="">
+ 
+                <label>Plate Number</label>
+                <input type="text" id="formPlate" placeholder="e.g. KDM 482">
+ 
+                <label>Model Number</label>
+                <input type="text" id="formModel" placeholder="e.g. Toyota HiAce H300">
+ 
+                <label>Engine Number</label>
+                <input type="text" id="formEngine" placeholder="e.g. EN-KDM482001">
+ 
+                <label>Passenger Capacity</label>
+                <input type="number" id="formCapacity" placeholder="e.g. 18" min="1">
+ 
+                <label>OR/CR Number</label>
+                <input type="text" id="formOrCr" placeholder="e.g. OR-2024-001001">
+ 
+                <label>Status</label>
+                <select id="formStatus">
+                    <option value="Registered">Registered</option>
+                    <option value="Not Registered">Not Registered</option>
+                </select>
+ 
+                <button class="btn-submit" id="modalSubmitBtn" onclick="submitForm()">Add Vehicle</button>
+            </div>
+        </div>
+    </div>
+ 
+ <!-- ========== DRIVER MANAGEMENT PAGE ========== -->
+<div class="page" id="page-driver-mgmt">
+    <!-- Header -->
+    <div class="header">
+        <div class="page-title">Driver Management</div>
+        <div class="search-container">
+            <input type="text" class="search-input" id="driverMgmtSearchInput" placeholder="Search drivers..." onkeyup="filterDriversTable()">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+        <div class="profile-icon">
+            <i class="fas fa-user"></i>
+        </div>
+    </div>
+ 
+    <!-- Driver Management Content -->
+    <div class="driver-mgmt-content">
+ 
+        <!-- Statistics Cards -->
+        <div class="js-stats-grid">
+            <div class="js-stat-card">
+                <div class="js-stat-header">
+                    <div class="js-stat-icon blue">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+                <div class="js-stat-value" id="dmStatTotalDrivers">0</div>
+                <div class="js-stat-label">Total Drivers</div>
+            </div>
+ 
+            <div class="js-stat-card">
+                <div class="js-stat-header">
+                    <div class="js-stat-icon green">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                </div>
+                <div class="js-stat-value" id="dmStatAvailable">0</div>
+                <div class="js-stat-label">Available</div>
+            </div>
+ 
+            <div class="js-stat-card">
+                <div class="js-stat-header">
+                    <div class="js-stat-icon orange">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                </div>
+                <div class="js-stat-value" id="dmStatAssigned">0</div>
+                <div class="js-stat-label">Assigned</div>
+            </div>
+ 
+            <div class="js-stat-card">
+                <div class="js-stat-header">
+                    <div class="js-stat-icon purple">
+                        <i class="fas fa-user-clock"></i>
+                    </div>
+                </div>
+                <div class="js-stat-value" id="dmStatSuspended">0</div>
+                <div class="js-stat-label">Suspended</div>
+            </div>
+        </div>
+ 
+        <!-- Vehicle Statistics Row -->
+        <div class="dm-vehicle-stats">
+            <div class="dm-vehicle-stat-item">
+                <i class="fas fa-bus"></i>
+                <div>
+                    <div class="dm-vs-label">Total Vehicles</div>
+                    <div class="dm-vs-value" id="dmTotalVehicles">0</div>
+                </div>
+            </div>
+            <div class="dm-vehicle-stat-item">
+                <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                <div>
+                    <div class="dm-vs-label">Assigned Vehicles</div>
+                    <div class="dm-vs-value green" id="dmAssignedVehicles">0</div>
+                </div>
+            </div>
+            <div class="dm-vehicle-stat-item">
+                <i class="fas fa-circle" style="color: #3b82f6;"></i>
+                <div>
+                    <div class="dm-vs-label">Available Vehicles</div>
+                    <div class="dm-vs-value blue" id="dmAvailableVehicles">0</div>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- Action Buttons -->
+        <div class="js-action-buttons">
+            <button class="js-btn js-btn-secondary" onclick="viewArchivedDrivers()">
+                <i class="fas fa-archive"></i>
+                View Archived Drivers
+            </button>
+            <button class="js-btn js-btn-primary" onclick="openAddDriverModalDM()">
+                <i class="fas fa-user-plus"></i>
+                Add New Driver
+            </button>
+        </div>
+ 
+        <!-- Filter Pills -->
+        <div class="dm-filter-section">
+            <div class="js-filter-pills">
+                <button class="js-filter-pill active" data-status="all" onclick="filterDriversByStatus('all')">All Drivers</button>
+                <button class="js-filter-pill" data-status="available" onclick="filterDriversByStatus('available')">Available</button>
+                <button class="js-filter-pill" data-status="assigned" onclick="filterDriversByStatus('assigned')">Assigned</button>
+                <button class="js-filter-pill" data-status="suspended" onclick="filterDriversByStatus('suspended')">Suspended</button>
+                <button class="js-filter-pill" data-status="leave" onclick="filterDriversByStatus('leave')">On Leave</button>
+            </div>
+        </div>
+ 
+        <!-- Drivers Table -->
+        <div class="js-card">
+            <div class="js-card-header">
+                <h2 class="js-card-title">All Drivers</h2>
+            </div>
+            <div class="js-card-body js-card-body-no-padding">
+                <table class="js-maintenance-table">
+                    <thead>
+                        <tr>
+                            <th>Driver Name</th>
+                            <th>License Number</th>
+                            <th>Contact</th>
+                            <th>Status</th>
+                            <th>Current Assignment</th>
+                            <th>Date Hired</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="driverMgmtTableBody">
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 40px; color: #636e72;">
+                                <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
+                                <p style="margin-top: 10px;">Loading drivers...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- ========== DRIVER MANAGEMENT MODALS ========== -->
+ 
+<!-- Add Driver Modal (DM specific) -->
+<div class="modal-overlay" id="addDriverDMModalOverlay" onclick="closeAddDriverDMModalOutside(event)">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeAddDriverDMModal()">&times;</button>
+        <h3 class="modal-title">Add New Driver</h3>
+ 
+        <div class="modal-form">
+            <label>First Name <span style="color: #e74c3c;">*</span></label>
+            <input type="text" id="dmDriverFirstName" required placeholder="Enter first name">
+ 
+            <label>Last Name <span style="color: #e74c3c;">*</span></label>
+            <input type="text" id="dmDriverLastName" required placeholder="Enter last name">
+ 
+            <label>License Number <span style="color: #e74c3c;">*</span></label>
+            <input type="text" id="dmDriverLicense" placeholder="e.g., DL-001-2024" required>
+ 
+            <label>Phone Number</label>
+            <input type="tel" id="dmDriverPhone" placeholder="e.g., 0912-345-6789">
+ 
+            <label>Email</label>
+            <input type="email" id="dmDriverEmail" placeholder="driver@email.com">
+ 
+            <label>Address</label>
+            <input type="text" id="dmDriverAddress" placeholder="Enter address">
+ 
+            <label>Emergency Contact</label>
+            <input type="text" id="dmDriverEmergency" placeholder="Name and number">
+ 
+            <label>Date Hired</label>
+            <input type="date" id="dmDriverHired">
+ 
+            <button class="btn-submit" onclick="submitAddDriverDM()">
+                <i class="fas fa-plus"></i> Add Driver
+            </button>
+        </div>
+    </div>
+</div>
+ 
+<!-- Assign Vehicle Modal -->
+<div class="modal-overlay" id="dmAssignVehicleModalOverlay" onclick="closeDMAssignVehicleModalOutside(event)">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeDMAssignVehicleModal()">&times;</button>
+        <h3 class="modal-title">Assign Vehicle to Driver</h3>
+ 
+        <div class="modal-form">
+            <input type="hidden" id="dmAssignDriverId">
+ 
+            <label>Driver</label>
+            <input type="text" id="dmAssignDriverDisplay" disabled style="background: #f8f9fa;">
+ 
+            <label>Select Vehicle <span style="color: #e74c3c;">*</span></label>
+            <select id="dmAssignVehicleSelect" required>
+                <option value="">-- Select a vehicle --</option>
+            </select>
+ 
+            <label>Notes (Optional)</label>
+            <textarea id="dmAssignNotes" rows="3" placeholder="Any special instructions..."></textarea>
+ 
+            <button class="btn-submit" onclick="submitDMAssignVehicle()">
+                <i class="fas fa-check"></i> Assign Vehicle
+            </button>
+        </div>
+    </div>
+</div>
+ 
+<!-- Set On Leave Modal -->
+<div class="modal-overlay" id="dmLeaveModalOverlay" onclick="closeDMLeaveModalOutside(event)">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeDMLeaveModal()">&times;</button>
+        <h3 class="modal-title">Set Driver On Leave</h3>
+ 
+        <div class="modal-form">
+            <input type="hidden" id="dmLeaveDriverId">
+ 
+            <label>Driver</label>
+            <input type="text" id="dmLeaveDriverDisplay" disabled style="background: #f8f9fa;">
+ 
+            <label>Leave Type <span style="color: #e74c3c;">*</span></label>
+            <select id="dmLeaveType" required>
+                <option value="">-- Select leave type --</option>
+                <option value="sick">Sick Leave</option>
+                <option value="vacation">Vacation Leave</option>
+                <option value="emergency">Emergency Leave</option>
+                <option value="personal">Personal Leave</option>
+                <option value="medical">Medical Leave</option>
+                <option value="maternity">Maternity/Paternity Leave</option>
+                <option value="other">Other</option>
+            </select>
+ 
+            <label>Start Date <span style="color: #e74c3c;">*</span></label>
+            <input type="date" id="dmLeaveStartDate" required>
+ 
+            <label>End Date (Expected Return)</label>
+            <input type="date" id="dmLeaveEndDate">
+ 
+            <label>Reason/Notes</label>
+            <textarea id="dmLeaveNotes" rows="3" placeholder="Provide additional details..."></textarea>
+ 
+            <button class="btn-submit" onclick="submitSetOnLeave()" style="background: #a855f7;">
+                <i class="fas fa-calendar-times"></i> Set On Leave
+            </button>
+        </div>
+    </div>
+</div>
+ 
+<!-- Return From Leave Modal -->
+<div class="modal-overlay" id="dmReturnFromLeaveModalOverlay" onclick="closeDMReturnFromLeaveModalOutside(event)">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeDMReturnFromLeaveModal()">&times;</button>
+        <h3 class="modal-title">Return Driver From Leave</h3>
+ 
+        <div class="modal-form">
+            <input type="hidden" id="dmReturnDriverId">
+ 
+            <label>Driver</label>
+            <input type="text" id="dmReturnDriverDisplay" disabled style="background: #f8f9fa;">
+ 
+            <div style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 12px; margin: 15px 0; border-radius: 4px;">
+                <p style="color: #1e40af; font-size: 13px; margin: 0;">
+                    <i class="fas fa-info-circle"></i> This will set the driver's status back to "available" and they can be assigned to vehicles again.
+                </p>
+            </div>
+ 
+            <label>Return Date</label>
+            <input type="date" id="dmReturnDate" required>
+ 
+            <label>Notes (Optional)</label>
+            <textarea id="dmReturnNotes" rows="3" placeholder="Any notes about the return..."></textarea>
+ 
+            <button class="btn-submit" onclick="submitReturnFromLeave()" style="background: #10b981;">
+                <i class="fas fa-user-check"></i> Return to Active Duty
+            </button>
+        </div>
+    </div>
+</div>
+ 
+<!-- Suspend Driver Modal -->
+<div class="modal-overlay" id="dmSuspendModalOverlay" onclick="closeDMSuspendModalOutside(event)">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeDMSuspendModal()">&times;</button>
+        <h3 class="modal-title">Suspend Driver</h3>
+ 
+        <div class="modal-form">
+            <input type="hidden" id="dmSuspendDriverId">
+ 
+            <label>Driver</label>
+            <input type="text" id="dmSuspendDriverDisplay" disabled style="background: #f8f9fa;">
+ 
+            <label>Suspension Reason <span style="color: #e74c3c;">*</span></label>
+            <select id="dmSuspendReason" required>
+                <option value="">-- Select reason --</option>
+                <option value="violation">Traffic Violation</option>
+                <option value="complaint">Customer Complaint</option>
+                <option value="accident">Accident Investigation</option>
+                <option value="medical">Medical Leave</option>
+                <option value="disciplinary">Disciplinary Action</option>
+                <option value="other">Other</option>
+            </select>
+ 
+            <label>Additional Notes</label>
+            <textarea id="dmSuspendNotes" rows="3" placeholder="Provide additional details..." required></textarea>
+ 
+            <label>Suspension Date</label>
+            <input type="date" id="dmSuspendDate" required>
+ 
+            <button class="btn-submit" onclick="submitSuspendDriver()" style="background: #f59e0b;">
+                <i class="fas fa-user-clock"></i> Suspend Driver
+            </button>
+        </div>
+    </div>
+</div>
+ 
+<!-- Terminate Driver Modal -->
+<div class="modal-overlay" id="dmTerminateModalOverlay" onclick="closeDMTerminateModalOutside(event)">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeDMTerminateModal()">&times;</button>
+        <h3 class="modal-title" style="color: #ef4444;">Terminate Driver</h3>
+ 
+        <div class="modal-form">
+            <input type="hidden" id="dmTerminateDriverId">
+ 
+            <label>Driver</label>
+            <input type="text" id="dmTerminateDriverDisplay" disabled style="background: #f8f9fa;">
+ 
+            <div style="background: #fee2e2; border-left: 4px solid #ef4444; padding: 12px; margin: 15px 0; border-radius: 4px;">
+                <p style="color: #991b1b; font-size: 13px; margin: 0;">
+                    <i class="fas fa-exclamation-triangle"></i> <strong>Warning:</strong> This will move the driver to the archived drivers table and cannot be undone.
+                </p>
+            </div>
+ 
+            <label>Termination Reason <span style="color: #e74c3c;">*</span></label>
+            <select id="dmTerminateReason" required>
+                <option value="">-- Select reason --</option>
+                <option value="resignation">Resignation</option>
+                <option value="retirement">Retirement</option>
+                <option value="misconduct">Misconduct</option>
+                <option value="performance">Poor Performance</option>
+                <option value="violation">Policy Violation</option>
+                <option value="contract_end">Contract Ended</option>
+                <option value="other">Other</option>
+            </select>
+ 
+            <label>Details <span style="color: #e74c3c;">*</span></label>
+            <textarea id="dmTerminateNotes" rows="4" placeholder="Provide detailed explanation..." required></textarea>
+ 
+            <label>Termination Date</label>
+            <input type="date" id="dmTerminateDate" required>
+ 
+            <button class="btn-submit" onclick="submitTerminateDriver()" style="background: #ef4444;">
+                <i class="fas fa-user-times"></i> Terminate & Archive
+            </button>
+        </div>
+    </div>
+</div>
+ 
+<!-- ========== REACTIVATE DRIVER MODAL ========== -->
+<div class="modal-overlay" id="dmReactivateModalOverlay" onclick="closeDMReactivateModalOutside(event)">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeDMReactivateModal()">&times;</button>
+        <h3 class="modal-title">Reactivate Suspended Driver</h3>
+ 
+        <div class="modal-form">
+            <input type="hidden" id="dmReactivateDriverId">
+ 
+            <label>Driver</label>
+            <input type="text" id="dmReactivateDriverDisplay" disabled style="background: #f8f9fa;">
+ 
+            <div style="background: #d1f2eb; border-left: 4px solid #10b981; padding: 12px; margin: 15px 0; border-radius: 4px;">
+                <p style="color: #047857; font-size: 13px; margin: 0;">
+                    <i class="fas fa-info-circle"></i> This will change the driver's status back to "available" and they can be assigned to vehicles again.
+                </p>
+            </div>
+ 
+            <label>Reactivation Date</label>
+            <input type="date" id="dmReactivateDate" required>
+ 
+            <label>Notes (Optional)</label>
+            <textarea id="dmReactivateNotes" rows="3" placeholder="Reason for reactivation or any additional notes..."></textarea>
+ 
+            <button class="btn-submit" onclick="submitReactivateDriver()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                <i class="fas fa-undo"></i> Reactivate Driver
+            </button>
+        </div>
+    </div>
+</div>
+ 
+<!-- View Archived Drivers Modal -->
+<div class="modal-overlay" id="dmArchivedModalOverlay" onclick="closeDMArchivedModalOutside(event)">
+    <div class="modal-box" style="max-width: 900px;">
+        <button class="modal-close" onclick="closeDMArchivedModal()">&times;</button>
+        <h3 class="modal-title"><i class="fas fa-archive"></i> Archived Drivers</h3>
+ 
+        <div class="modal-form">
+            <div style="max-height: 500px; overflow-y: auto;">
+                <table class="js-maintenance-table">
+                    <thead>
+                        <tr>
+                            <th>Driver Name</th>
+                            <th>License</th>
+                            <th>Termination Date</th>
+                            <th>Reason</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="archivedDriversTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 40px;">
+                                <i class="fas fa-spinner fa-spin"></i> Loading...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+    <!-- ========== ADD MAINTENANCE MODAL ========== -->
+    <div class="modal-overlay" id="maintenanceModalOverlay" onclick="closeMaintenanceModalOutside(event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeMaintenanceModal()">&times;</button>
+            <h3 class="modal-title" id="maintenanceModalTitle">Add Maintenance Record</h3>
+ 
+            <div class="modal-form">
+                <label>Select Vehicle <span style="color: #e74c3c;">*</span></label>
+                <select id="maintenanceVehicle" required>
+                    <option value="">Loading vehicles...</option>
+                </select>
+ 
+                <label>Maintenance Type</label>
+                <select id="maintenanceType">
+                    <option value="oil">Oil Change</option>
+                    <option value="tire">Tire Rotation</option>
+                    <option value="brake">Brake Inspection/Replacement</option>
+                    <option value="inspection">Annual Inspection</option>
+                    <option value="engine">Engine Tune-up</option>
+                    <option value="battery">Battery Replacement</option>
+                    <option value="transmission">Transmission Service</option>
+                    <option value="other">Other</option>
+                </select>
+ 
+                <label>Service Date <span style="color: #e74c3c;">*</span></label>
+                <input type="date" id="maintenanceDate" required>
+ 
+                <label>Cost (₱) <span style="color: #e74c3c;">*</span></label>
+                <input type="number" id="maintenanceCost" placeholder="0.00" step="0.01" required>
+ 
+                <label>Service Provider</label>
+                <input type="text" id="maintenanceProvider" placeholder="Enter service provider name">
+ 
+                <label>Notes</label>
+                <textarea id="maintenanceNotes" rows="3" placeholder="Additional notes..."></textarea>
+ 
+                <button class="btn-submit" onclick="submitMaintenanceForm()">Add Record</button>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- ========== SCHEDULE MAINTENANCE MODAL ========== -->
+    <div class="modal-overlay" id="scheduleModalOverlay" onclick="closeScheduleModalOutside(event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeScheduleModal()">&times;</button>
+            <h3 class="modal-title" id="scheduleModalTitle">Schedule Maintenance</h3>
+ 
+            <div class="modal-form">
+                <input type="hidden" id="scheduleVehiclePlate" value="">
+ 
+                <label>Vehicle</label>
+                <input type="text" id="scheduleVehicleDisplay" disabled style="background: #f8f9fa;">
+ 
+                <label>Maintenance Type</label>
+                <select id="scheduleType">
+                    <option value="oil">Oil Change</option>
+                    <option value="tire">Tire Rotation</option>
+                    <option value="brake">Brake Inspection</option>
+                    <option value="inspection">Annual Inspection</option>
+                    <option value="engine">Engine Tune-up</option>
+                    <option value="battery">Battery Check</option>
+                    <option value="other">Other</option>
+                </select>
+ 
+                <label>Scheduled Date <span style="color: #e74c3c;">*</span></label>
+                <input type="date" id="scheduleDate" required>
+ 
+                <label>Estimated Cost (₱)</label>
+                <input type="number" id="scheduleCost" placeholder="0.00" step="0.01">
+ 
+                <label>Description</label>
+                <textarea id="scheduleDescription" rows="3" placeholder="Describe the maintenance task..."></textarea>
+ 
+                <button class="btn-submit" onclick="submitScheduleForm()">Schedule</button>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- ========== ROUTE MANAGEMENT PAGE ========== -->
+<!-- ========== ROUTE MANAGEMENT PAGE ========== -->
+<div class="page" id="page-route-mgmt">
+    <!-- Header -->
+    <div class="header">
+        <div class="page-title">Route Management</div>
+        <div class="search-container">
+            <input type="text" class="search-input" id="routeMgmtSearchInput" placeholder="Search routes..." onkeyup="filterRoutesTable()">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+        <div class="profile-icon">
+            <i class="fas fa-user"></i>
+        </div>
+    </div>
+ 
+    <!-- Route Management Content -->
+    <div class="route-mgmt-content">
+ 
+        <!-- Statistics Cards -->
+        <div class="route-stats-grid">
+            <div class="route-stat-card">
+                <div class="route-stat-header">
+                    <div class="route-stat-icon blue">
+                        <i class="fas fa-route"></i>
+                    </div>
+                </div>
+                <div class="route-stat-value" id="rmStatTotalRoutes">0</div>
+                <div class="route-stat-label">Total Routes</div>
+            </div>
+ 
+            <div class="route-stat-card">
+                <div class="route-stat-header">
+                    <div class="route-stat-icon green">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+                <div class="route-stat-value" id="rmStatActiveRoutes">0</div>
+                <div class="route-stat-label">Active Routes</div>
+            </div>
+ 
+            <div class="route-stat-card">
+                <div class="route-stat-header">
+                    <div class="route-stat-icon orange">
+                        <i class="fas fa-road"></i>
+                    </div>
+                </div>
+                <div class="route-stat-value" id="rmStatTotalDistance">0 km</div>
+                <div class="route-stat-label">Total Distance</div>
+            </div>
+ 
+            <div class="route-stat-card">
+                <div class="route-stat-header">
+                    <div class="route-stat-icon purple">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                </div>
+                <div class="route-stat-value" id="rmStatAvgFare">₱0</div>
+                <div class="route-stat-label">Average Fare</div>
+            </div>
+        </div>
+ 
+        <!-- Action Button -->
+        <div class="js-action-buttons">
+            <button class="js-btn js-btn-primary" onclick="openAddRouteModal()">
+                <i class="fas fa-plus"></i>
+                Add New Route
+            </button>
+        </div>
+ 
+        <!-- Routes Grid - EMPTY, will be populated by JavaScript from database -->
+        <div class="routes-grid" id="routesGrid">
+            <!-- JavaScript will populate this with route cards from database -->
+            <!-- DO NOT add any hardcoded route cards here -->
+        </div>
+ 
+        <!-- Fare Structure Comparison Table -->
+        <div class="fare-structure-card">
+            <div class="fare-structure-header">
+                <div class="fare-structure-title">
+                    <i class="fas fa-table"></i> Fare Structure per Route
+                </div>
+            </div>
+ 
+            <table class="fare-table">
+                <thead>
+                    <tr>
+                        <th>Route</th>
+                        <th>Code</th>
+                        <th>Distance</th>
+                        <th>Regular Fare</th>
+                        <th>Student</th>
+                        <th>PWD/Senior</th>
+                    </tr>
+                </thead>
+                <tbody id="fareComparisonBody">
+                    <!-- JavaScript will populate this with fare data from database -->
+                    <!-- DO NOT add hardcoded rows here -->
+                </tbody>
+            </table>
+        </div>
+ 
+        <!-- Calculation Guidelines Info Box -->
+        <div class="fare-structure-card">
+            <div class="fare-structure-header">
+                <div class="fare-structure-title">
+                    <i class="fas fa-info-circle"></i> Fare Calculation Guidelines
+                </div>
+            </div>
+            <div style="padding: 20px; background: #f8fafc; border-radius: 8px;">
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="padding: 10px 0; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                        <span>Base fare varies by route distance</span>
+                    </li>
+                    <li style="padding: 10px 0; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                        <span>20% discount for students and senior citizens</span>
+                    </li>
+                    <li style="padding: 10px 0; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                        <span>PWD passengers receive 20% discount as mandated by law</span>
+                    </li>
+                    <li style="padding: 10px 0; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                        <span>Fares are subject to LTFRB regulations</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- ========== ADD/EDIT ROUTE MODAL ========== -->
+<div class="modal-overlay" id="rmModalOverlay" onclick="closeRMModalOutside(event)">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeRMModal()">&times;</button>
+        <h3 class="modal-title" id="rmModalTitle">Add New Route</h3>
+ 
+        <div class="modal-form">
+            <input type="hidden" id="rmRouteId" value="">
+ 
+            <label>Route Name <span style="color: #e74c3c;">*</span></label>
+            <input type="text" id="rmRouteName" required placeholder="e.g., Cubao-Novaliches">
+ 
+            <label>Route Code <span style="color: #e74c3c;">*</span></label>
+            <input type="text" id="rmRouteCode" required placeholder="e.g., RT-001">
+ 
+            <label>Distance (km) <span style="color: #e74c3c;">*</span></label>
+            <input type="number" id="rmDistance" step="0.1" min="0.1" required placeholder="e.g., 15.2">
+ 
+            <label>Regular Fare (₱) <span style="color: #e74c3c;">*</span></label>
+            <input type="number" id="rmRegularFare" step="0.01" min="0.01" required placeholder="e.g., 21.00">
+ 
+            <label>Student Fare (₱)</label>
+            <input type="number" id="rmStudentFare" step="0.01" min="0" placeholder="e.g., 17.00">
+ 
+            <label>PWD/Senior Fare (₱)</label>
+            <input type="number" id="rmPwdFare" step="0.01" min="0" placeholder="e.g., 17.00">
+ 
+            <label>Status</label>
+            <select id="rmStatus">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
+ 
+            <button class="btn-submit" id="rmSubmitBtn" onclick="submitRouteForm()">
+                <i class="fas fa-plus"></i> Add Route
+            </button>
+        </div>
+    </div>
+</div>
+ 
+<!-- ========== SCHEDULING & DISPATCH PAGE ========== -->
+    <div class="page" id="page-scheduling">
+        <!-- Header -->
+        <div class="header">
+            <div class="page-title">Scheduling & Dispatch Dashboard</div>
+            <div class="search-container">
+                <input type="text" class="search-input" id="schedulingSearchInput" placeholder="Search...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="profile-icon">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+ 
+        <!-- Tab Navigation -->
+        <div class="sched-tab-navigation">
+            <button class="sched-tab-btn active" data-sched-page="shift-management">
+                <i class="fas fa-clock"></i> Shift Management
+            </button>
+            <button class="sched-tab-btn" data-sched-page="vehicle-deployment">
+                <i class="fas fa-truck"></i> Vehicle Deployment Planning
+            </button>
+            <button class="sched-tab-btn" data-sched-page="driver-schedule">
+                <i class="fas fa-calendar"></i> Driver Schedule Calendar
+            </button>
+        </div>
+ 
+        <!-- Shift Management Sub-page -->
+        <div class="sched-page-content active" id="sched-shift-management">
+            <div class="sched-page-header">
+                <h2>Shift Management</h2>
+                <button class="sched-btn-primary" onclick="openAddShiftModal()">
+                    <i class="fas fa-plus-circle"></i> Add Shift
+                </button>
+            </div>
+ 
+            <div class="sched-filter-container">
+                <select class="sched-filter-select" id="shiftFilter" onchange="filterShifts()">
+                    <option value="all">All Shifts</option>
+                    <option value="morning">Morning Shift</option>
+                    <option value="afternoon">Afternoon Shift</option>
+                    <option value="night">Night Shift</option>
+                    <option value="midnight">Midnight/Graveyard Shift</option>
+                </select>
+            </div>
+ 
+            <div class="sched-shifts-container" id="shiftsContainer">
+                <!-- Shifts will be loaded here -->
+            </div>
+        </div>
+ 
+        <!-- Vehicle Deployment Sub-page -->
+        <div class="sched-page-content" id="sched-vehicle-deployment">
+            <div class="sched-page-header">
+                <h2>Vehicle Deployment Planning</h2>
+                <button class="sched-btn-primary" onclick="openAddShiftModal()">
+                    <i class="fas fa-plus-circle"></i> Add Shift
+                </button>
+            </div>
+ 
+            <div class="sched-stats-grid">
+                <div class="sched-stat-card">
+                    <h3>Available Units</h3>
+                    <div class="sched-stat-number" id="availableUnits">12</div>
+                </div>
+                <div class="sched-stat-card">
+                    <h3>In Transit</h3>
+                    <div class="sched-stat-number" id="inTransit">45</div>
+                </div>
+                <div class="sched-stat-card">
+                    <h3>Maintenance</h3>
+                    <div class="sched-stat-number" id="inMaintenance">3</div>
+                </div>
+            </div>
+ 
+            <div class="sched-vehicles-list" id="vehiclesList">
+                <!-- Vehicles will be loaded here -->
+            </div>
+        </div>
+ 
+        <!-- Driver Schedule Calendar Sub-page -->
+        <div class="sched-page-content" id="sched-driver-schedule">
+            <div class="sched-calendar-header">
+                <button class="sched-btn-back" onclick="backToCalendarView()" style="display: none;" id="backToCalendarBtn">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <h2 id="calendarTitle">SELECT A DATE</h2>
+                <button class="sched-btn-link" onclick="viewFullCalendar()">View Full Calendar</button>
+            </div>
+ 
+            <div class="sched-calendar-view" id="calendarView">
+                <div class="sched-calendar-controls">
+                    <button class="sched-calendar-nav" onclick="changeSchedMonth(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="sched-calendar-title">
+                        <span class="sched-month-number" id="schedMonthNumber">01</span>
+                        <span class="sched-month-name" id="schedMonthName">January</span>
+                        <span class="sched-year" id="schedYear">2026</span>
+                    </div>
+                    <button class="sched-calendar-nav" onclick="changeSchedMonth(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+ 
+                <div class="sched-calendar-grid" id="schedCalendarGrid">
+                    <!-- Calendar will be generated here -->
+                </div>
+            </div>
+ 
+            <!-- Schedule Details View (Hidden by default) -->
+            <div class="sched-details-view" id="scheduleDetailsView" style="display: none;">
+                <div class="sched-details-header">
+                    <h2 id="scheduleDateTitle">12 January 2026</h2>
+                    <div class="sched-search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search" id="scheduleDetailsSearch" onkeyup="filterScheduleDetails()">
+                    </div>
+                </div>
+ 
+                <div class="sched-details-table-container">
+                    <table class="sched-details-table">
+                        <thead>
+                            <tr>
+                                <th>Driver & Plate #</th>
+                                <th>Shift Time</th>
+                                <th>Route Path</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scheduleDetailsBody">
+                            <!-- Will be populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- Shift Details View (Hidden by default) -->
+        <div class="sched-details-view" id="shiftDetailsView" style="display: none;">
+            <div class="sched-details-header">
+                <button class="sched-btn-back" onclick="backToShiftList()">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <h2 id="shiftDetailsTitle">Morning Shift</h2>
+                <div class="sched-search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search" id="shiftDetailsSearch" onkeyup="filterShiftDetails()">
+                </div>
+            </div>
+ 
+            <div class="sched-details-table-container">
+                <table class="sched-details-table">
+                    <thead>
+                        <tr>
+                            <th>Driver & Plate #</th>
+                            <th>Shift Time</th>
+                            <th>Route Path</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="shiftDetailsBody">
+                        <!-- Will be populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- Add Shift Modal -->
+    <div class="modal-overlay" id="addShiftModalOverlay" onclick="closeAddShiftModalOutside(event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeAddShiftModal()">&times;</button>
+            <h3 class="modal-title">Shift Management</h3>
+ 
+            <div class="modal-form">
+                <label>Full Name</label>
+                <input type="text" id="shiftDriverName" placeholder="Enter driver name">
+ 
+                <label>Route Path</label>
+                <input type="text" id="shiftRoutePath" placeholder="Enter route">
+ 
+                <label>Plate Number</label>
+                <input type="text" id="shiftPlateNumber" placeholder="Enter plate number">
+ 
+                <label>Shift Time</label>
+                <div class="time-inputs-row">
+                    <input type="time" id="shiftStartTime">
+                    <span style="margin: 0 10px;">to</span>
+                    <input type="time" id="shiftEndTime">
+                </div>
+ 
+                <div class="modal-actions" style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button class="btn-secondary" onclick="closeAddShiftModal()" style="flex: 1;">Back</button>
+                    <button class="btn-submit" onclick="submitAddShift()" style="flex: 1;">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+ 
+<!-- Load scripts at the end -->
+<!-- Replace the scripts section at the bottom of your HTML with this -->
+ 
+<!-- Load scripts at the end -->
+<script src="js/script.js"></script>
+<script src="js/jeep-status.js"></script>
+<script src="js/vehicle-details.js"></script>
+<script src="js/route-management.js"></script>
+<script src="js/scheduling.js"></script>
+    <script src="js/navigation.js"></script>
+ 
+<script>
+document.querySelectorAll('.nav-link[data-page="jeep-status"]').forEach(link => {
+    link.addEventListener('click', function() {
+        setTimeout(() => {
+            if (typeof loadJeepStatusData === 'function') {
+                loadJeepStatusData();
+            }
+        }, 100);
+    });
+});
+</script>
+ 
+<script src="js/driver-management.js"></script>
+<script src="js/logout-function.js"></script>
+<script src="js/vehicle-details.js"></script>
+ 
+</body>
+</html>
+ 
+</body>
+</html>

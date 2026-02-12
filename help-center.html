@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoBeep - Help Center</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #3b7fbd 0%, #7cb342 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAVBAR STYLES - DARK BLUE */
+        .navbar {
+            background: linear-gradient(135deg, #0a1929 0%, #1e3a5f 100%);
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-logo {
+            width: 50px;
+            height: 50px;
+            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.2));
+        }
+
+        .nav-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #7cb342;
+        }
+
+        .nav-links a.active {
+            background: rgba(124, 179, 66, 0.2);
+            color: #7cb342;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(135deg, #0a1929 0%, #1e3a5f 100%);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 30px 40px;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-left, .footer-center, .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #7cb342;
+        }
+
+        .separator {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Help Center Styles */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, #3b7fbd 0%, #7cb342 100%);
+            padding: 80px 20px 60px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px 15px 55px;
+            border-radius: 50px;
+            border: none;
+            font-size: 16px;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .contact-info-section h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .contact-details {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        .contact-details p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 0 40px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .tab-btn.active {
+            background: #fff;
+            color: #3b7fbd;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .faq-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .faq-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .faq-card h3 {
+            color: #3b7fbd;
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .faq-card p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .feedback-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .feedback-btn {
+            padding: 15px 40px;
+            background: #7cb342;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(124, 179, 66, 0.3);
+        }
+
+        .feedback-btn:hover {
+            background: #689f38;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 179, 66, 0.4);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 30px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            color: #3b7fbd;
+            font-size: 28px;
+        }
+
+        .close-btn {
+            font-size: 30px;
+            cursor: pointer;
+            color: #888;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .feedback-form {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            color: #7cb342;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+
+        .btn-cancel {
+            padding: 12px 30px;
+            background: #f0f0f0;
+            color: #333;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-submit-feedback {
+            padding: 12px 30px;
+            background: #7cb342;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit-feedback:hover {
+            background: #689f38;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+                padding: 6px 12px;
+            }
+
+            .hero {
+                padding: 60px 20px 40px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .content-wrapper {
+                padding: 0 20px;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-title {
+                font-size: 22px;
+            }
+
+            .nav-logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 11px;
+                padding: 5px 8px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .contact-info-section h3 {
+                font-size: 22px;
+            }
+
+            .faq-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="ecobeeplogo_nobg.png" alt="EcoBeep Logo" class="nav-logo">
+                <span class="nav-title">ECOBEEP</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="about-us.html">ABOUT US</a></li>
+                <li><a href="help-center.html" class="active">HELP CENTER</a></li>
+                <li><a href="login.html">LOG IN</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>HOW CAN WE HELP YOU?</h1>
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search for help...">
+        </div>
+    </div>
+
+    <div class="contact-info-section">
+        <h3>Contact us</h3>
+        <div class="contact-details">
+            <p><strong>Email:</strong> support@ecobeep.com</p>
+            <p><strong>Phone:</strong> +63 912 345 6789</p>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="driver">Driver</button>
+            <button class="tab-btn" data-tab="passenger">Passenger</button>
+        </div>
+
+        <div id="driver-tab" class="tab-content active">
+            <div class="faq-grid">
+                <div class="faq-card">
+                    <h3>What if a passenger's card doesn't work?</h3>
+                    <p>Ask them to retry. If it still fails, they'll need to pay in cash or reload before boarding.</p>
+                </div>
+                <div class="faq-card">
+                    <h3>Do I need special training to use EcoBeep?</h3>
+                    <p>No, the system is designed to be intuitive. A short orientation is provided to help drivers get familiar with the system and app.</p>
+                </div>
+                <div class="faq-card">
+                    <h3>How do I know if a passenger's payment was successful?</h3>
+                    <p>The system will confirm with a beep and display a "Payment Success!" message. The transaction is automatically recorded in the system.</p>
+                </div>
+                <div class="faq-card">
+                    <h3>What should I do if a passenger boards without an EcoBeep card?</h3>
+                    <p>Passengers must have an EcoBeep card to pay digitally. If they don't have one, cash fares may be accepted. However, tap-to-pay remains the primary and preferred payment method.</p>
+                </div>
+                <div class="faq-card">
+                    <h3>How do I handle disputes if a passenger claims they were charged incorrectly?</h3>
+                    <p>Direct them to check their transaction history in the app. If the issue remains, they can contact support@ecobeep.com and file a report.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="passenger-tab" class="tab-content">
+            <div class="faq-grid">
+                <div class="faq-card">
+                    <h3>What should I do if my EcoBeep card doesn't scan properly?</h3>
+                    <p>If your card fails to scan, try again. If the issue persists, inform the driver and reload your card through the app.</p>
+                </div>
+                <div class="faq-card">
+                    <h3>Can I transfer my balance to another card or account?</h3>
+                    <p>No, balances are tied to individual accounts for security. You'll need to reload separately.</p>
+                </div>
+                <div class="faq-card">
+                    <h3>What happens if I lose my EcoBeep card?</h3>
+                    <p>Contact support@ecobeep.com and report it immediately. You can disable your lost card through the app to prevent unauthorized use and then request a replacement.</p>
+                </div>
+                <div class="faq-card">
+                    <h3>Is there a minimum balance required to ride?</h3>
+                    <p>Yes, you need at least the standard jeepney fare in your account to board.</p>
+                </div>
+                <div class="faq-card">
+                    <h3>How do I know my payment went through?</h3>
+                    <p>The system will confirm with a beep and display a "Payment Success!" message. Your app will show the updated balance and transaction history.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="feedback-section">
+            <button class="feedback-btn" onclick="openModal()">Have concerns? Send feedback</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <a href="#">Terms and Policies</a>
+                <span class="separator">•</span>
+                <a href="#">Privacy Notice</a>
+            </div>
+            <div class="footer-center">
+                <p>&copy; EcoBeep 2026</p>
+            </div>
+            <div class="footer-right">
+                <p>Based in Quezon City, Philippines | Contact us: <a href="mailto:support@ecobeep.com">support@ecobeep.com</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Send Feedback</h2>
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+            </div>
+            <form id="feedbackForm" class="feedback-form" onsubmit="return handleSubmit(event)">
+                <div class="form-group">
+                    <label for="feedbackName">Name</label>
+                    <input type="text" id="feedbackName" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="feedbackEmail">Email</label>
+                    <input type="email" id="feedbackEmail" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="feedbackCategory">Category</label>
+                    <select id="feedbackCategory" name="category" required>
+                        <option value="">Select a category</option>
+                        <option value="bug">Bug Report</option>
+                        <option value="feature">Feature Request</option>
+                        <option value="question">Question</option>
+                        <option value="complaint">Complaint</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="feedbackMessage">Message</label>
+                    <textarea id="feedbackMessage" name="message" rows="5" placeholder="Tell us your feedback..." required></textarea>
+                </div>
+                <div id="feedbackError" class="error-message"></div>
+                <div id="feedbackSuccess" class="success-message"></div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-submit-feedback">Submit Feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                btn.classList.add('active');
+                document.getElementById(tab + '-tab').classList.add('active');
+            });
+        });
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('.faq-card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(searchTerm) ? 'block' : 'none';
+            });
+        });
+
+        // Modal functions
+        function openModal() {
+            document.getElementById('feedbackModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('feedbackModal').classList.remove('show');
+            document.getElementById('feedbackForm').reset();
+            document.getElementById('feedbackError').classList.remove('show');
+            document.getElementById('feedbackSuccess').classList.remove('show');
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            const successMsg = document.getElementById('feedbackSuccess');
+            successMsg.textContent = 'Thank you! Your feedback has been submitted.';
+            successMsg.classList.add('show');
+            
+            setTimeout(() => {
+                closeModal();
+            }, 2000);
+            
+            return false;
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('feedbackModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

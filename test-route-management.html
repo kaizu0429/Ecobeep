@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Management Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f8fafc;
+            padding: 20px;
+        }
+        
+        .test-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .test-header {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .test-header h1 {
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+        
+        .test-header p {
+            color: #64748b;
+        }
+        
+        /* Stats Grid */
+        .route-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .route-stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .route-stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            margin-bottom: 16px;
+        }
+        
+        .route-stat-icon.blue { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+        .route-stat-icon.green { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .route-stat-icon.orange { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+        .route-stat-icon.purple { background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%); }
+        
+        .route-stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        
+        .route-stat-label {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        /* Action Button */
+        .js-action-buttons {
+            margin-bottom: 30px;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .js-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .js-btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .js-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        
+        /* Routes Grid */
+        .routes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+        
+        .route-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .route-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+        
+        .route-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .route-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .route-name i {
+            color: #3b82f6;
+        }
+        
+        .route-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .route-status.active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .route-code {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #eff6ff;
+            color: #1e40af;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .route-detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .route-detail-row:last-child {
+            border-bottom: none;
+        }
+        
+        .route-detail-label {
+            font-size: 14px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .route-detail-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .route-distance { color: #3b82f6; }
+        .route-fare { color: #10b981; }
+        
+        /* Route Card Actions */
+        .route-card-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f1f5f9;
+        }
+        
+        .route-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .route-btn-edit {
+            background: #eff6ff;
+            color: #1e40af;
+        }
+        
+        .route-btn-edit:hover {
+            background: #dbeafe;
+        }
+        
+        .route-btn-delete {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .route-btn-delete:hover {
+            background: #fecaca;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-overlay.show {
+            display: flex;
+        }
+        
+        .modal-box {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f1f5f9;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            background: #e2e8f0;
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 24px;
+        }
+        
+        .modal-form label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 8px;
+            margin-top: 16px;
+        }
+        
+        .modal-form label:first-of-type {
+            margin-top: 0;
+        }
+        
+        .modal-form input,
+        .modal-form select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        
+        .modal-form input:focus,
+        .modal-form select:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: all 0.2s;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1>🧪 Route Management Test Page</h1>
+            <p>Test if the Add Route functionality works correctly</p>
+        </div>
+        
+        <!-- Stats Grid -->
+        <div class="route-stats-grid">
+            <div class="route-stat-card">
+                <div class="route-stat-icon blue">
+                    <i class="fas fa-route"></i>
+                </div>
+                <div class="route-stat-value" id="rmStatTotalRoutes">0</div>
+                <div class="route-stat-label">Total Routes</div>
+            </div>
+            
+            <div class="route-stat-card">
+                <div class="route-stat-icon green">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="route-stat-value" id="rmStatActiveRoutes">0</div>
+                <div class="route-stat-label">Active Routes</div>
+            </div>
+            
+            <div class="route-stat-card">
+                <div class="route-stat-icon orange">
+                    <i class="fas fa-road"></i>
+                </div>
+                <div class="route-stat-value" id="rmStatTotalDistance">0 km</div>
+                <div class="route-stat-label">Total Distance</div>
+            </div>
+            
+            <div class="route-stat-card">
+                <div class="route-stat-icon purple">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <div class="route-stat-value" id="rmStatAvgFare">₱0</div>
+                <div class="route-stat-label">Average Fare</div>
+            </div>
+        </div>
+        
+        <!-- Action Button -->
+        <div class="js-action-buttons">
+            <button class="js-btn js-btn-primary" onclick="openAddRouteModal()">
+                <i class="fas fa-plus"></i>
+                Add New Route
+            </button>
+        </div>
+        
+        <!-- Routes Grid -->
+        <div class="routes-grid" id="routesGrid">
+            <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: #64748b;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 48px; margin-bottom: 20px;"></i>
+                <p style="font-size: 18px; font-weight: 600;">Loading routes...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal-overlay" id="rmModalOverlay" onclick="closeRMModalOutside(event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeRMModal()">&times;</button>
+            <h3 class="modal-title" id="rmModalTitle">Add New Route</h3>
+            
+            <div class="modal-form">
+                <input type="hidden" id="rmRouteId" value="">
+                
+                <label>Route Name <span style="color: #e74c3c;">*</span></label>
+                <input type="text" id="rmRouteName" placeholder="e.g., Cubao-Novaliches">
+                
+                <label>Route Code <span style="color: #e74c3c;">*</span></label>
+                <input type="text" id="rmRouteCode" placeholder="e.g., RT-001">
+                
+                <label>Distance (km) <span style="color: #e74c3c;">*</span></label>
+                <input type="number" id="rmDistance" step="0.1" min="0.1" placeholder="e.g., 15.2">
+                
+                <label>Regular Fare (₱) <span style="color: #e74c3c;">*</span></label>
+                <input type="number" id="rmRegularFare" step="0.01" min="0.01" placeholder="e.g., 21.00">
+                
+                <label>Student Fare (₱)</label>
+                <input type="number" id="rmStudentFare" step="0.01" min="0" placeholder="e.g., 17.00">
+                
+                <label>PWD/Senior Fare (₱)</label>
+                <input type="number" id="rmPwdFare" step="0.01" min="0" placeholder="e.g., 17.00">
+                
+                <label>Status</label>
+                <select id="rmStatus">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+                
+                <button class="btn-submit" id="rmSubmitBtn" onclick="submitRouteForm()">
+                    <i class="fas fa-plus"></i> Add Route
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/route-management.js"></script>
+</body>
+</html>

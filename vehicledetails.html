@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Details - EcoBeep</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+/* ===================== SIDEBAR STYLES ===================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e8e8e8;
+    min-height: 100vh;
+    display: flex;
+}
+
+.sidebar {
+    width: 230px;
+    min-width: 230px;
+    background-color: #2c2c2c;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.sidebar-logo {
+    text-align: center;
+    padding: 24px 10px 20px;
+}
+
+.sidebar-logo .logo-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #1a7a45, #2ecc71);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    box-shadow: 0 3px 10px rgba(46,204,113,0.3);
+}
+
+.sidebar-logo .logo-img i {
+    color: #fff;
+    font-size: 28px;
+}
+
+.sidebar-logo .brand {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.sidebar nav ul {
+    list-style: none;
+}
+
+.sidebar nav ul li a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 12px 22px;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+}
+
+.sidebar nav ul li a:hover {
+    background: rgba(255,255,255,0.07);
+    color: #fff;
+}
+
+.sidebar nav ul li a.active {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border-left-color: #fff;
+    font-weight: 600;
+}
+
+.sidebar nav ul li a i {
+    width: 16px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.sidebar-section-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #666;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 20px 22px 6px;
+}
+
+/* Submenu */
+.submenu {
+    display: none;
+    list-style: none;
+}
+
+.submenu.open {
+    display: block;
+}
+
+.submenu li a {
+    padding-left: 52px !important;
+    font-size: 13px !important;
+    color: #888 !important;
+}
+
+.submenu li a:hover,
+.submenu li a.active {
+    color: #fff !important;
+}
+
+/* ===================== MAIN WRAPPER ===================== */
+.main-wrapper {
+    margin-left: 230px;
+    flex: 1;
+    min-height: 100vh;
+}
+
+/* ===================== PAGE VISIBILITY ===================== */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ===================== YOUR ORIGINAL STYLES (UNTOUCHED) ===================== */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px 20px 0 20px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-title::before {
+    content: '';
+    width: 4px;
+    height: 30px;
+    background-color: #333;
+    border-radius: 2px;
+}
+
+.search-container {
+    flex: 1;
+    max-width: 400px;
+    margin: 0 20px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 40px 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.profile-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.content-container {
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    margin: 0 20px 20px 20px;
+}
+
+.registered-vehicles-section {
+    margin-bottom: 25px;
+}
+
+.registered-vehicles-label {
+    display: inline-block;
+    background: #999;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-bottom: 25px;
+    align-items: center;
+}
+
+.pagination button {
+    padding: 8px 14px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    color: #666;
+    min-width: 36px;
+}
+
+.pagination button.active {
+    background: #333;
+    color: white;
+    border-color: #333;
+    font-weight: 600;
+}
+
+.pagination button:hover:not(.active) {
+    background: #f5f5f5;
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.vehicle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.vehicle-card {
+    background-color: white;
+    border: 2px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.vehicle-card:hover {
+    border-color: #999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.plate-number {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-add {
+    background-color: white;
+    color: #555;
+    border: 2px solid #e5e5e5;
+}
+
+.btn-add:hover {
+    background-color: #f9f9f9;
+    border-color: #999;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-edit {
+    background-color: white;
+    color: #555;
+    border: 2px solid #e5e5e5;
+}
+
+.btn-edit:hover {
+    background-color: #f9f9f9;
+    border-color: #999;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-remove {
+    background-color: white;
+    color: #555;
+    border: 2px solid #e5e5e5;
+}
+
+.btn-remove:hover {
+    background-color: #f9f9f9;
+    border-color: #999;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-inactive {
+    background-color: #ef4444;
+    color: white;
+    border: 2px solid #ef4444;
+}
+
+.btn-inactive:hover {
+    background-color: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+/* ===================== HOME PAGE STYLES (matching Image 2 exactly) ===================== */
+
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px 0 20px;
+    margin-bottom: 30px;
+}
+
+.welcome-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+}
+
+.home-header .search-container {
+    flex: 1;
+    max-width: 400px;
+    margin: 0 20px;
+    position: relative;
+}
+
+.fleet-banner {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px 28px;
+    margin: 0 20px 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.fleet-banner h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.home-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.home-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px 26px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.home-card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.home-card-title i {
+    color: #666;
+    font-size: 16px;
+}
+
+/* Active Vehicles */
+.active-vehicles-val {
+    font-size: 15px;
+    color: #444;
+}
+
+.active-vehicles-val strong {
+    font-size: 15px;
+}
+
+/* Revenue rows */
+.rev-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+}
+
+.rev-row:last-of-type { border-bottom: none; }
+.rev-row .rev-label { color: #777; }
+.rev-row .rev-value { font-weight: 600; color: #333; }
+.rev-trend { color: #27ae60; font-weight: 600; }
+.view-breakdown { display: inline-block; margin-top: 14px; font-size: 13px; color: #4a90d9; cursor: pointer; text-decoration: none; }
+.view-breakdown:hover { text-decoration: underline; }
+
+/* Driver Status */
+.driver-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 600;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.driver-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f5f5f5;
+    font-size: 14px;
+    color: #444;
+}
+
+.driver-row:last-child { border-bottom: none; }
+
+.badge {
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.badge-active   { background: #e6faf0; color: #27ae60; }
+.badge-inactive { background: #fef0f0; color: #e74c3c; }
+.badge-break    { background: #fef9e7; color: #f39c12; }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+    .sidebar { width: 200px; min-width: 200px; }
+    .main-wrapper { margin-left: 200px; }
+
+    .header, .home-header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .search-container { width: 100%; max-width: 100% !important; margin: 0 !important; }
+    .vehicle-grid { grid-template-columns: 1fr; }
+    .action-buttons { flex-direction: column; }
+    .btn { width: 100%; }
+    .pagination { justify-content: center; }
+    .home-grid { grid-template-columns: 1fr; }
+}
+    </style>
+</head>
+<body>
+
+<!-- ===================== SIDEBAR ===================== -->
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <div class="logo-img"><i class="fas fa-bus"></i></div>
+        <div class="brand">EcoBeep</div>
+    </div>
+    <nav>
+        <ul>
+            <li>
+                <a href="#" class="nav-link active" data-page="home">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link jeep-toggle">
+                    <i class="fas fa-bus"></i> Jeep Management
+                    <i class="fas fa-chevron-down" style="margin-left:auto; font-size:10px; transition:transform 0.25s;"></i>
+                </a>
+                <ul class="submenu" id="jeepSubmenu">
+                    <li><a href="#" class="nav-link" data-page="vehicle-details">Vehicle Details</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="nav-link" data-page="driver-mgmt">
+                    <i class="fas fa-users"></i> Driver Management
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link" data-page="route-mgmt">
+                    <i class="fas fa-map-marker-alt"></i> Route Management
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link" data-page="financial">
+                    <i class="fas fa-dollar-sign"></i> Financial Management
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link" data-page="scheduling">
+                    <i class="fas fa-calendar-alt"></i> Scheduling &amp; Dispatch
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link" data-page="maintenance">
+                    <i class="fas fa-cog"></i> Maintenance &amp; Compliance
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-section-label">Settings</div>
+        <ul>
+            <li>
+                <a href="#" class="nav-link" data-page="account">
+                    <i class="fas fa-user"></i> Account Setting
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link" data-page="user-mgmt">
+                    <i class="fas fa-users"></i> User Management
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link" data-page="notifications">
+                    <i class="fas fa-bell"></i> Notifications Preferences
+                </a>
+            </li>
+        </ul>
+    </nav>
+</aside>
+
+<!-- ===================== MAIN WRAPPER ===================== -->
+<div class="main-wrapper">
+
+    <!-- ========== HOME PAGE (Image 2) ========== -->
+    <div class="page active" id="page-home">
+        <div class="home-header">
+            <div class="welcome-title">Welcome, Operator 👋</div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="profile-icon"><i class="fas fa-user"></i></div>
+        </div>
+
+        <div class="fleet-banner">
+            <h2>Here's Your Fleet Overview Today</h2>
+        </div>
+
+        <div class="home-grid">
+            <!-- Active Vehicles -->
+            <div class="home-card">
+                <div class="home-card-title"><i class="fas fa-truck"></i> Active Vehicles: 15</div>
+            </div>
+            <!-- Alerts -->
+            <div class="home-card">
+                <div class="home-card-title"><i class="fas fa-bell"></i> Alerts/Notifications</div>
+            </div>
+            <!-- Revenue Summary -->
+            <div class="home-card">
+                <div class="home-card-title"><i class="fas fa-bar-chart-line"></i> Revenue Summary</div>
+                <div class="rev-row"><span class="rev-label">Total Revenue Today:</span><span class="rev-value">₱12,450</span></div>
+                <div class="rev-row"><span class="rev-label">Trips Completed:</span><span class="rev-value">25</span></div>
+                <div class="rev-row"><span class="rev-label">Avg. Fare per Trip:</span><span class="rev-value">₱40</span></div>
+                <div class="rev-row"><span class="rev-label">Top Driver:</span><span class="rev-value">Juan Dela Cruz – ₱4,550</span></div>
+                <div class="rev-row"><span class="rev-label">Revenue Trend:</span><span class="rev-value rev-trend">↑ 8% vs. yesterday</span></div>
+                <a class="view-breakdown" href="#">View Breakdown</a>
+            </div>
+            <!-- Driver Status -->
+            <div class="home-card">
+                <div class="home-card-title"><i class="fas fa-user"></i> Driver Status</div>
+                <div class="driver-head"><span>Name</span><span>Status</span></div>
+                <div class="driver-row"><span>Juan Dela Cruz</span><span class="badge badge-active">Active</span></div>
+                <div class="driver-row"><span>Piolo Pascual</span><span class="badge badge-inactive">Inactive</span></div>
+                <div class="driver-row"><span>Coco Martin</span><span class="badge badge-break">On Break</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== VEHICLE DETAILS PAGE (your original code, untouched) ========== -->
+    <div class="page" id="page-vehicle-details">
+        <!-- Header -->
+        <div class="header">
+            <div class="page-title">Vehicle Details</div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="profile-icon">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-container">
+            <div class="registered-vehicles-section">
+                <div class="registered-vehicles-label">Registered Vehicles</div>
+            </div>
+
+            <div class="pagination">
+                <button>&lt;</button>
+                <button>1</button>
+                <button class="active">2</button>
+                <button>3</button>
+                <button>&gt;</button>
+            </div>
+
+            <div class="vehicle-grid">
+                <div class="vehicle-card">
+                    <div class="plate-number">KDM 482</div>
+                </div>
+                <div class="vehicle-card">
+                    <div class="plate-number">RM 3376</div>
+                </div>
+                <div class="vehicle-card">
+                    <div class="plate-number">TXY 917</div>
+                </div>
+                <div class="vehicle-card">
+                    <div class="plate-number">NDP 4821</div>
+                </div>
+                <div class="vehicle-card">
+                    <div class="plate-number">NCR 305</div>
+                </div>
+                <div class="vehicle-card">
+                    <div class="plate-number">KLM 9037</div>
+                </div>
+                <div class="vehicle-card">
+                    <div class="plate-number">QWE 648</div>
+                </div>
+                <div class="vehicle-card">
+                    <div class="plate-number">RTY 1168</div>
+                </div>
+                <div class="vehicle-card">
+                    <div class="plate-number">QWE 648</div>
+                </div>
+                <div class="vehicle-card">
+                    <div class="plate-number">BXA 7742</div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-add">
+                    <i class="fas fa-plus-circle btn-icon"></i>
+                    Add Vehicle
+                </button>
+                <button class="btn btn-edit">
+                    <i class="fas fa-edit btn-icon"></i>
+                    Edit Vehicle
+                </button>
+                <button class="btn btn-remove">
+                    <i class="fas fa-trash-alt btn-icon"></i>
+                    Remove Vehicle
+                </button>
+                <button class="btn btn-inactive">
+                    <i class="fas fa-ban btn-icon"></i>
+                    Mark as Inactive
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // ========== NAVIGATION ==========
+    function navigateTo(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const target = document.getElementById('page-' + pageId);
+        if (target) target.classList.add('active');
+    }
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // Jeep Management toggle
+            if (this.classList.contains('jeep-toggle')) {
+                const submenu = document.getElementById('jeepSubmenu');
+                submenu.classList.toggle('open');
+                const chevron = this.querySelector('.fa-chevron-down');
+                chevron.style.transform = submenu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+                return;
+            }
+
+            const pageId = this.dataset.page;
+            if (!pageId) return;
+
+            // Remove active from all nav links
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+
+            // If vehicle-details, also keep Jeep Management highlighted & open
+            if (pageId === 'vehicle-details') {
+                document.querySelector('.jeep-toggle').classList.add('active');
+                document.getElementById('jeepSubmenu').classList.add('open');
+                const chevron = document.querySelector('.jeep-toggle .fa-chevron-down');
+                chevron.style.transform = 'rotate(180deg)';
+            }
+
+            navigateTo(pageId);
+        });
+    });
+
+    // ========== YOUR ORIGINAL SCRIPTS (untouched) ==========
+
+    // Vehicle card click handler
+    document.querySelectorAll('.vehicle-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const plateNumber = this.querySelector('.plate-number').textContent;
+            console.log('Selected vehicle:', plateNumber);
+        });
+    });
+
+    // Pagination handlers
+    document.querySelectorAll('.pagination button').forEach(button => {
+        button.addEventListener('click', function() {
+            if (!this.classList.contains('active') && this.textContent.match(/\d/)) {
+                document.querySelector('.pagination button.active').classList.remove('active');
+                this.classList.add('active');
+            }
+        });
+    });
+</script>
+</body>
+</html>

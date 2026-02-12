@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Debug Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .debug-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .debug-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 EcoBeep Route Debug Tool</h1>
+    <p>This page will help you debug why static data is showing instead of database data.</p>
+
+    <div class="debug-box">
+        <div class="debug-title">1. Test Database Connection</div>
+        <button onclick="testConnection()">Test Connection</button>
+        <div id="connectionResult"></div>
+    </div>
+
+    <div class="debug-box">
+        <div class="debug-title">2. Check Routes API Response</div>
+        <button onclick="testRoutesAPI()">Fetch Routes</button>
+        <div id="apiResult"></div>
+    </div>
+
+    <div class="debug-box">
+        <div class="debug-title">3. Raw Response Data</div>
+        <button onclick="showRawData()">Show Raw JSON</button>
+        <div id="rawData"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'php/get-routes.php'; // Adjust this to your actual path
+
+        function testConnection() {
+            const resultDiv = document.getElementById('connectionResult');
+            resultDiv.innerHTML = '<p>Testing connection...</p>';
+
+            fetch(API_BASE)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP error ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        resultDiv.innerHTML = `
+                            <div class="status success">✅ Connection Successful</div>
+                            <p><strong>Routes Found:</strong> ${data.routes ? data.routes.length : 0}</p>
+                        `;
+                    } else {
+                        resultDiv.innerHTML = `
+                            <div class="status error">❌ API Error</div>
+                            <p><strong>Message:</strong> ${data.message}</p>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    resultDiv.innerHTML = `
+                        <div class="status error">❌ Connection Failed</div>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p>Make sure your PHP file path is correct and the server is running.</p>
+                    `;
+                });
+        }
+
+        function testRoutesAPI() {
+            const resultDiv = document.getElementById('apiResult');
+            resultDiv.innerHTML = '<p>Fetching routes...</p>';
+
+            fetch(API_BASE)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.routes) {
+                        let html = '<div class="status success">✅ Routes Loaded</div>';
+                        html += `<p><strong>Total Routes:</strong> ${data.routes.length}</p>`;
+                        
+                        if (data.routes.length > 0) {
+                            html += '<h4>Routes List:</h4><ul>';
+                            data.routes.forEach(route => {
+                                html += `<li>${route.route_name} (${route.code}) - ₱${route.regular_fare}</li>`;
+                            });
+                            html += '</ul>';
+                        } else {
+                            html += '<p><strong>⚠️ Warning:</strong> No routes found in database. You need to add routes first!</p>';
+                        }
+                        
+                        resultDiv.innerHTML = html;
+                    } else {
+                        resultDiv.innerHTML = `
+                            <div class="status error">❌ Failed to Load Routes</div>
+                            <p>${data.message || 'Unknown error'}</p>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    resultDiv.innerHTML = `
+                        <div class="status error">❌ Error</div>
+                        <p>${error.message}</p>
+                    `;
+                });
+        }
+
+        function showRawData() {
+            const resultDiv = document.getElementById('rawData');
+            resultDiv.innerHTML = '<p>Fetching raw data...</p>';
+
+            fetch(API_BASE)
+                .then(response => response.json())
+                .then(data => {
+                    resultDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                })
+                .catch(error => {
+                    resultDiv.innerHTML = `<div class="status error">Error: ${error.message}</div>`;
+                });
+        }
+
+        // Auto-run tests on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Debug page loaded');
+            testConnection();
+        });
+    </script>
+</body>
+</html>
